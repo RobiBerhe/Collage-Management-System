@@ -1,0 +1,154 @@
+body {
+	background-color: #e5e5e5;
+}
+
+.sidebar {
+	position: fixed;
+	width: 15%;
+	left: 0;
+	top: 64px;
+	bottom: 0;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.sidebar-links li {
+	float: none;
+	display: block;
+}
+
+.sidebar-links li a {
+	display: block;
+	/*padding: 0;*/
+	text-decoration: none;
+	position: relative;
+	/*text-align: center;*/
+}
+.sidebar .sidebar-links li a i {
+	/*position: absolute;*/
+	/*top: 2px;*/
+	/*left: 10px;*/
+}
+
+.collapsible {
+	border: 0;
+	background-color: inherit;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.collapsible a {
+    text-align-all: justify;
+}
+
+.collapsible-header {
+	border: 0;
+	background-color: inherit;
+	display: block;
+	/*padding: 10px;*/
+}
+
+.collapsible-header a {
+	display: block;
+	/*width: 100%;*/
+	/*background-color: #daac11;*/
+}
+
+thead > tr > th {
+	cursor: pointer;
+}
+
+.row {
+	display: block;
+}
+
+.collapsible-body{
+	border: 0;
+	padding: 0;
+}
+
+.collapsible-body a {
+	display: block;
+	width: 100%;
+	padding: 0 37.5px 0 45px;
+}
+
+.sidebar .sidebar-links li a:hover {
+	text-decoration: none;
+	color:inherit;
+}
+
+.nav-wrapper a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.container {
+	margin-left: 0;
+}
+
+@media screen and (min-width: 768px) {
+	.container {
+		margin-left: 15%;
+	}
+}
+
+.profile-info {
+	position: relative;
+	padding: 10px;
+    background-image: url("../images/user-img-background.jpg");
+    /*background-image: url("../images/bg.png");*/
+	background-size: cover;
+	font-size: 14px;
+}
+.profile-info p {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+}
+.profile-info img {
+	/*padding: 20px;*/
+	margin: 0;
+}
+
+span.badge {
+	color: #fff;
+}
+
+.profile-pic {
+	position: absolute;
+	left: 25%;
+	padding: 15px;
+	background-color: #fbc02d;
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+}
+
+.copyright-notice {
+    /*float: left;*/
+    /*position: relative;*/
+}
+
+.copyright-notice p {
+    left: 0;
+    bottom: 0;
+    font-size: 14px;
+    text-align: justify-all;
+    padding-left: 15px;
+    /*float: left;*/
+}
+
+/*overrideing the bootstrap css on modal*/
+.modal {
+	bottom: auto;
+}
+
+.card-content .col {
+	position: static;
+}
+
+.tabs .tab a {
+	text-decoration: none;
+}
