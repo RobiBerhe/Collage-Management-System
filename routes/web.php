@@ -52,24 +52,3 @@ Route::group(['middleware'=>'auth'],function(){
 
 });
 
-
-
-// Route::group(['middleware'=>'cors'],function(){
-// 	Route::get('my_students',function(){
-// 		return [
-// 			'students'=>[
-// 				[
-// 					'id'=>'1',
-// 					'name'=>'robel .Berhe',
-// 					'department'=>'sw',
-// 				],
-// 				[
-// 					'id'=>'2',
-// 					'name'=>'student 2',
-// 					'department'=>'cs',
-// 				]
-// 			]
-// 		];
-// 	});
-// });
-

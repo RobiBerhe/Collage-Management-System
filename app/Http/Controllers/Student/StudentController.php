@@ -15,6 +15,8 @@ use App\Http\Requests\StudentAdmissionRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+use PDF;
+
 
 class StudentController extends Controller
 {
@@ -128,7 +130,6 @@ class StudentController extends Controller
         return response()->json($students);
 
     }
-
 
 
     public function destroy($id){
