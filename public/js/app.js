@@ -47945,7 +47945,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       var vm = this;
-      axios.delete('students/' + student_id).then(function (_ref) {
+      axios.delete('/students/' + student_id).then(function (_ref) {
         var data = _ref.data;
 
         console.log(data);
@@ -48227,53 +48227,52 @@ var render = function() {
             _c(
               "tbody",
               _vm._l(_vm.students, function(student) {
-                return _c(
-                  "tr",
-                  {
-                    key: student.id,
-                    on: {
-                      click: function($event) {
-                        _vm.redirect(student.id)
+                return _c("tr", { key: student.id }, [
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.redirect(student.id)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("td", [_vm._v(_vm._s(student.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(student.application.first_name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(student.application.last_name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(student.department.department_name))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(student.program.program_name))]),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "center waves-effect waves-light red-text modal-trigger",
-                          attrs: { href: "#delete-modal" },
-                          on: {
-                            click: function($event) {
-                              _vm.triggerSelected(student.id)
-                            }
+                    },
+                    [_vm._v(_vm._s(student.id))]
+                  ),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(student.application.first_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(student.application.last_name))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(student.department.department_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(student.program.program_name))]),
+                  _vm._v(" "),
+                  _vm._m(2, true),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "center waves-effect waves-light red-text modal-trigger",
+                        attrs: { href: "#delete-modal" },
+                        on: {
+                          click: function($event) {
+                            _vm.triggerSelected(student.id)
                           }
-                        },
-                        [
-                          _c("i", { staticClass: "material-icons" }, [
-                            _vm._v("delete")
-                          ])
-                        ]
-                      )
-                    ])
-                  ]
-                )
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "material-icons" }, [
+                          _vm._v("delete")
+                        ])
+                      ]
+                    )
+                  ])
+                ])
               })
             )
           ]
