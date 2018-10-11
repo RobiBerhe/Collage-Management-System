@@ -196,7 +196,7 @@
             },
             deleteStudent(student_id){
               const vm = this;
-              axios.delete('students/'+student_id).then(({data})=>{
+              axios.delete('/students/'+student_id).then(({data})=>{
                 console.log(data);
                 this.base_url = "api/students";
                 vm.fetchStudents(this.base_url);
