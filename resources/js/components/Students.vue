@@ -55,8 +55,8 @@
            </tr>
            </thead>
            <tbody>
-           <tr v-for="student in students" v-bind:key="student.id" v-on:click="redirect(student.id)">
-               <td>{{student.id}}</td>
+           <tr v-for="student in students" v-bind:key="student.id">
+               <td  v-on:click="redirect(student.id)">{{student.id}}</td>
                <td>{{student.application.first_name}}</td>
                <td>{{student.application.last_name}}</td>
                <td>{{student.department.department_name}}</td>
