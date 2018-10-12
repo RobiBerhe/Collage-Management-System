@@ -31,6 +31,7 @@ Route::get('/dashboard','Dashboard\DashBoardController@index')->name("dashboard"
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>'auth'],function(){
+    Route::get("students/report",'Student\StudentController@report');
     Route::resource('students','Student\StudentController');
     Route::get("students/{student}/create-2",'Student\StudentController@create_two');
     Route::post('students/student-store','Student\StudentController@storeStudent')->name("storeStudent");

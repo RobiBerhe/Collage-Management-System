@@ -140,4 +140,14 @@ class StudentController extends Controller
         $student->delete();
         return response()->json($student);
     }
+
+
+    public function report(){
+        $students = Student::get();
+
+        $pdf = PDF::loadView("dashboard.student-report",compact('students'));
+        return $pdf->stream('student-report.pdf');
+
+        return view("dashboard.student-report",compact('students'));
+    }
 }
