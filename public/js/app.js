@@ -47389,7 +47389,7 @@ exports = module.exports = __webpack_require__(43)(false);
 
 
 // module
-exports.push([module.i, "\nselect.form-control[data-v-1a1c4f03]{\n  margin-top: 11px;\n  height: auto;\n}\ntable tbody> tr >td[data-v-1a1c4f03]:nth-child(1) {\n  cursor: pointer;\n}\n\n", ""]);
+exports.push([module.i, "\n.table-responsive[data-v-1a1c4f03]{\n  display: table;\n}\n@media screen and (max-width:600px) {\n.table-responsive[data-v-1a1c4f03] {\n      display: block;\n}\n}\nselect.form-control[data-v-1a1c4f03]{\n  margin-top: 11px;\n  height: auto;\n}\ntable tbody> tr >td[data-v-1a1c4f03]:nth-child(1) {\n  cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -48218,7 +48218,7 @@ var render = function() {
           "table",
           {
             staticClass:
-              "table table-bordered striped highlight responsive-table",
+              "table table-bordered striped highlight table-responsive",
             attrs: { id: "table-student" }
           },
           [
@@ -48430,27 +48430,22 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { onclick: "sortTable('table-student',0)" } }, [
-          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("ID")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',1)" } }, [
-          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("First Name")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',2)" } }, [
-          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Last Name")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',3)" } }, [
-          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Department")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',4)" } }, [
-          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Program")
         ]),
         _vm._v(" "),
