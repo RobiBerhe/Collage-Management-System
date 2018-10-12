@@ -44,11 +44,11 @@
        <table class="table table-bordered striped highlight table-responsive" id="table-student" v-if="has_students">
            <thead>
            <tr>
-               <th onclick="sortTable('table-student',0)">ID</th>
-               <th onclick="sortTable('table-student',1)">First Name</th>
-               <th onclick="sortTable('table-student',2)">Last Name</th>
-               <th onclick="sortTable('table-student',3)">Department</th>
-               <th onclick="sortTable('table-student',4)">Program</th>
+               <th onclick="sortTable('table-student',0)"><i class="material-icons right">sort</i>ID</th>
+               <th onclick="sortTable('table-student',1)"><i class="material-icons right">sort</i>First Name</th>
+               <th onclick="sortTable('table-student',2)"><i class="material-icons right">sort</i>Last Name</th>
+               <th onclick="sortTable('table-student',3)"><i class="material-icons right">sort</i>Department</th>
+               <th onclick="sortTable('table-student',4)"><i class="material-icons right">sort</i>Program</th>
 
                <th>Edit</th>
                <th>Delete</th>

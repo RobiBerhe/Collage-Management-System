@@ -48430,22 +48430,27 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { onclick: "sortTable('table-student',0)" } }, [
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("ID")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',1)" } }, [
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("First Name")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',2)" } }, [
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Last Name")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',3)" } }, [
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Department")
         ]),
         _vm._v(" "),
         _c("th", { attrs: { onclick: "sortTable('table-student',4)" } }, [
+          _c("i", { staticClass: "material-icons right" }, [_vm._v("sort")]),
           _vm._v("Program")
         ]),
         _vm._v(" "),
