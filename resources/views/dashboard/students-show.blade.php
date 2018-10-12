@@ -33,6 +33,9 @@
 									<p>
 									 <a href="{{route('contacts.create',$student->application->id)}}" data-position="bottom" data-tooltip="This will be used incase of emergencies" class="btn red darken-2 white-text waves-effect waves-light tooltipped">Add contact person</a>
 									</p>
+								@else
+									<p>Contact Person Full Name : <strong>{{$contact_person->first_name." ".$contact_person->middle_name}}</strong></p>
+									<p>Contact Person Phone Number : <strong>{{$contact_person->telephone_home}}</strong></p>
 								@endif
 							</div>
 							<div id="student-detail">

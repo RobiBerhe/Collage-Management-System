@@ -6,11 +6,13 @@
 	<div class="container" id="app">
 		<div class="row">
 			<div class="row"></div>
-			<div class="white col m10 offset-m2">
+			<div class="white col m10 offset-m2 z-depth-1">
 				<p>The contact person will be created for:
 					<strong>{{$student_application->first_name." ".$student_application->middle_name}}</strong>
 					</p>
-				<form action="#" method="POST">
+				<form action="{{route("contacts.store")}}" method="POST">
+					@csrf
+					<input type="hidden" name="application_id" value="{{$student_application->id}}">
 					<div class="input-field col m6">
 						<input type="text" name="first_name" id="first_name">
 						<label for="first_name">First Name <span class="helper-text blue-text right">*</span></label>

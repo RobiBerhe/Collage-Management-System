@@ -5,6 +5,8 @@ namespace App\Http\Controllers\contact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Application;
+use App\ContactPerson;
+use App\Http\Requests\ContactPersonCreate;
 
 class ContactPersonController extends Controller
 {
@@ -39,9 +41,22 @@ class ContactPersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactPersonCreate $request)
     {
-        //
+        // dd($request);
+        $contact_person = new ContactPerson([
+            'application_id'=>$request->application_id,
+            'first_name'=>$request->first_name,
+            'middle_name'=>$request->middle_name,
+            'last_name'=>$request->last_name,
+            'city'=>$request->city,
+            'kfle_ketema'=>$request->sub_city,
+            'kebele'=>$request->kebele,
+            'telephone_home'=>$request->phone_home,
+        ]);
+        $contact_person->save();
+        return redirect("/students/".$request->get("application_id")."/");
+
     }
 
     /**
