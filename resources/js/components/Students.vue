@@ -1,6 +1,6 @@
 <template>
    <div class="">
-        <!-- <div class="row"> -->
+        <div class="row">
           <div class="input-field col m3">
             <select name="admission" id="admission" v-model="admission" class="browser-default form-control">
               <option value="" disabled selected>Choose admission</option>
@@ -21,11 +21,19 @@
               <option v-for="department in departments" v-bind:value="department.id">{{department.department_name}}</option>
             </select>
           </div>
-        <!-- </div> -->
-        <div class="input-field right">
-                      <input type="text" name="search" id="search" v-model="search_q" @keyup="searchStudent">
-                      <label for="search">Search by first name</label>
+          <div class="input-field col m3 right">
+              <input type="text" name="search" id="search" v-model="search_q" @keyup="searchStudent">
+              <label for="search">Search by first name</label>
+          </div>
+           <!-- <div class="row"> -->
+           <div class="input-field col m4" style="">
+            <a class="btn red darken-1 white-text waves-light waves-effect" v-bind:href="export_link" target="_blank"><i class="material-icons right">send</i>PDF</a>
+          </div>
+         <!-- </div> -->
         </div>
+
+
+       
         <div class="row" v-if="has_students == false">
             <div class="col m6 offset-m5">
               <div class="preloader-wrapper big active">
@@ -42,6 +50,7 @@
             </div>
         </div>
        <table class="table table-bordered striped highlight table-responsive" id="table-student" v-if="has_students">
+
            <thead>
            <tr>
                <th onclick="sortTable('table-student',0)"><i class="material-icons right">sort</i>ID</th>
@@ -82,6 +91,9 @@
        </div>
        <div class="row" v-if="has_students">
            <div class="col m6 offset-m4">
+                  <div class="row">
+                    <div class="col m12">showing {{pagination.from}} to {{pagination.to}} of {{pagination.total}} entries</div>
+                  </div>
                    <ul class="pagination">
                        <li class="page-item"  v-bind:class="{disabled:isInfirstPage}"><a href="#" class="page-link" @click="fetchStudents(pagination.prev)"><</a></li>
                        <li class="page-item" v-bind:class="{active:pagination.current_page === number.num}" v-for="number in pagination.numbers"><a href="#" class="page-link" @click="fetchStudents(number.link)">{{number.num}}</a></li>
@@ -112,11 +124,13 @@
                 search_q:'',
                 has_students:false,
                 selected_student:'',
+                export_link:'',
             }
         },
         created(){
           this.base_url = "/api/students";
             this.fetchStudents(this.base_url);
+            this.export_link = "/students/report/";
             this.getAdmissions();
             this.getPrograms();
         },
@@ -131,16 +145,21 @@
                   console.log("Data Retrieved using the Axios");
                   console.log(res);
                   this.students = res.data.data;
-                        this.has_students = true;
-                        console.log(this.students);
-                        vm.makePagination(res.data,this.base_url);
+                  this.has_students = true;
+                  console.log(this.students);
+                  vm.makePagination(res.data,this.base_url);
+                  
                 });
             },
             makePagination(res,base_url){
               base_url = base_url+"?";
                 var pagination = {
                     current_page: res.current_page,
-                    last_page:base_url+res.last_page,
+                    // last_page:base_url+res.last_page,
+                    total:res.total,
+                    from:res.from,
+                    to:res.to,
+                    last_page:res.last_page,
                     next: (res.next_page_url===null) ?null:base_url+res.next_page_url.substr(1),
                     prev:(res.prev_page_url ===null)?null:base_url+res.prev_page_url.substr(1),
                     numbers:[],
@@ -154,11 +173,11 @@
             },
             searchStudent(){
               if(this.search_q === ""){
-                this.base_url = "api/students/"
+                this.base_url = "/api/students/"
                 this.fetchStudents(this.base_url);
                 return;
               } 
-              axios.get("students/search/first_name/"+this.search_q).then((data)=>{
+              axios.get("/students/search/first_name/"+this.search_q).then((data)=>{
                 if(data.data !==[]){
                   console.log(data);
                   this.students = [];
@@ -173,7 +192,7 @@
 
               }).catch((ex)=>{
                 console.info("We seem to have problems: "+ex);
-                this.base_url = "api/students";
+                this.base_url = "/api/students";
                   this.fetchStudents(this.base_url);
               });
             },
@@ -252,9 +271,10 @@
                       this.program = '';
                       this.department = '';
                       this.admission = '';
-                      console.log(res.data.last_page);
+                      // console.log(res.data.last_page);
                       this.base_url = url;
                       vm.makePagination(res.data,url);
+                      this.export_link = "/students/report/"+filters.program+"/"+filters.department+"/"+filters.admission;
                     })
             },
             // redirects into a single student view.

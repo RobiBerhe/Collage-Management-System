@@ -28,17 +28,30 @@ class StudentController extends Controller
 
 
 
+    /**
+    * Displays The view for displaying the listing of the resource.
+    * 
+    */
     public function index(){
        return view("dashboard.students-index");
     }
 
 
 
-    /*shows the form for registering students.*/
+    /**
+    * Shows the form for creating a student resource.
+    * @return \Illuminate\Http\Response
+    */
     public function create(){
     	return view("dashboard.students-create");
     }
 
+
+    /**
+    * Stores the provied Student data into the database.
+    * @param StudentCreateRequest $request
+    * @return \Illuminate\Http\Response
+    */
     public function store(StudentCreateRequest $request){
     	$studentApplication = Application::create(
     		array(
@@ -61,6 +74,11 @@ class StudentController extends Controller
     }
 
 
+    /**
+    * Displays the form for the continuation of the student registration process.
+    * @param int $application_id
+    * @return \Illuminate\Http\Response
+    */
     public function create_two($application_id){
         $lastStudentApplication = Application::find($application_id);
         if($lastStudentApplication == null)
@@ -71,9 +89,17 @@ class StudentController extends Controller
         return view("dashboard.students-create-step-2",compact('lastStudentApplication','departments','programs','admissions'));
     }
 
+
+    /**
+    * Displays the specified student resource.
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    *
+    */
     public function show($id){
         $student = Student::find($id);
-        // if the student is not found.
+
+        // The student is not found return an error page..
         if($student == null){
             $message = "There is no student with a student id of ".$id;
             return view("404.404",compact("message"));
@@ -85,7 +111,12 @@ class StudentController extends Controller
     
 
 
-    // this method continues the second part of the student registration form.
+    /**
+    * The student registration is a two step process, and this method continues from the first part of the student registration process.
+    * 
+    * @param StudentAdmissionRequest $request
+    * @return \Illuminate\Http\Response
+    */
     public function storeStudent(StudentAdmissionRequest $request){
     	
     	$student = new Student(array(
@@ -106,35 +137,43 @@ class StudentController extends Controller
     	return redirect(route('students.index'));
     }
 
+    /**
+    * search's students based on the provided key value pairs (#ex: $key:'first_name',$value='rob').
+    * @param string $key
+    * @param string $value
+    */
     public function searchStudent($key,$value){
         $students = Student::with('application')->with('program')->with("department")->where($key,'LIKE','%'.$value.'%')->join('applications','students.application_id','=','applications.id')->get();
         return response()->json($students);
     }
 
-    public function filterStudent($program_id,$department_id,$admission=null){
-        $students = Student::with('application')->with('department')->with('program')
-                                ->join('applications','students.application_id','=','applications.id')
-                                ->join('departments','students.department_id','=','departments.id')
-                                ->join('programs','students.program_id','=','programs.id')
-                                ->where('programs.id','=',$program_id)
-                                ->where('departments.id','=',$department_id);
-                                // ->get(['students.*']);
-        if($admission !=null)
-            $students->where('admission_id','=',$admission);
+    /**
+    * Filters students based on the provided parameters.
+    * @param int $program_id
+    * @param int $department_id
+    * @param int admission
+    * @return \Illuminate\Http\Response
+    */
+    public function filterStudents($program_id,$department_id,$admission=null){
+        $students = $this->filter($program_id,$department_id,$admission);
+
         $page = LengthAwarePaginator::resolveCurrentPage();
-        $total = $students->get(['students.*'])->count();
+        $total = $students->count();
         $perPage = 5;
-        $result = $students->get(['students.*']);
+        $result = $students;
         $result = $result->forPage($page,$perPage);
         $students = new LengthAwarePaginator($result,$total,$perPage,$page,['path'=>LengthAwarePaginator::resolveCurrentPage(),]);
         return response()->json($students);
-
     }
 
-
+    /**
+    * deletes the specfied student and related information from the database.
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id){
 
-        $student = Student::find($id);//->with('application')->with('admittedList')->get();
+        $student = Student::find($id);
         $student->application()->delete();
         $student->admittedlist()->delete();
         $student->delete();
@@ -142,12 +181,44 @@ class StudentController extends Controller
     }
 
 
-    public function report(){
-        $students = Student::get();
+    /**
+    * Exports students reports into a PDF file based on the specified parameters.
+    * @param int $program_id
+    * @param int $department
+    * @param int $admission
+    * @return\Illuminate\Http\Response
+    */
+    public function report($program_id = null,$department=null,$admission=null){
 
-        $pdf = PDF::loadView("dashboard.student-report",compact('students'));
-        return $pdf->stream('student-report.pdf');
+            $students = $this->filter($program_id,$department,$admission);
+            $pdf = PDF::loadView("dashboard.student-report",compact('students'));
+            return $pdf->stream('student-list.pdf');
+    }
 
-        return view("dashboard.student-report",compact('students'));
+    /**
+    * Filters down students based on the specified parameters.
+    * @param int $program
+    * @param int $department
+    * @param int $admission
+    * @return Model $students; 
+    */
+    public function filter($program = null,$department=null,$admission=null){
+        $students = Student::with('application')->with('department')->with('program')
+                                ->join('applications','students.application_id','=','applications.id')
+                                ->join('departments','students.department_id','=','departments.id')
+                                ->join('programs','students.program_id','=','programs.id');
+
+        if(!is_null($program))
+            $students->where('programs.id','=',$program);
+
+        if(!is_null($department))
+            $students->where('departments.id','=',$department);
+
+        if(!is_null($admission))
+            $students->where('admission_id','=',$admission);
+
+        $students = $students->get(['students.*']);
+
+        return $students;
     }
 }

@@ -5,40 +5,70 @@
 	<title>Students Report</title>
 	<style>
 
+		body {
+			position: relative;
+		}
 		.table {
+			margin: 0;
 			width: 100%;
 			display: table;
 			padding: 8px 16px;
 			border-radius: 4px;
 			border: none;
-			font-size: 16px;
+			font-size: 14px;
 			border-collapse: collapse;
+			position: absolute;
+			top: 31px;
+			left: 0;
 		}
-		thead {
-			background-color: #367;
-			color: #fff;
-		}
-		th {
-			font-weight: 800;
-		}
+		
 		.table th, td {
 			border: 1px solid #c9c9c9;
 			padding: 8px 16px;
+			text-align: center;
+			align-content: center;
 		}
 
-		.report-title {
-			padding: 8px 16px;
+		thead {
+			/*background-color: #367;*/
+			background-color: #034f84;
+			border: 0px;
+			color: #fff;
+		}
+		.table th {
+			font-weight: 800;
+			border: none;
+		}
+		
 
+		.report-title {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			left: 15.55px;
+			right: 15.55px;
+			padding: 8px 16px;
+			background-color: #0066cc; /*#005960 */
+			color: #fff;
+		}
+		header {
+			/*margin: 0;*/
+			padding: 1px;
+			color: #fff;
+			background-color: rgba(255, 0, 0, 0.8);
+			border-left: 3px solid #a01;
+		}	
+		body {
+			padding: 0;
+			margin: 0;
 		}
 		
 	</style>
 </head>
 <body>
-	
 	<div class="container">
 		<div class="row">
-			{{-- <div class="col m10 white z-depth-5"> --}}
-				<h3 class="report-title">Students Report</h3>
+				<h3 class="report-title">Students List</h3>
 				<table class="table table-bordered">
 					<thead>
 						<tr>

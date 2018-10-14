@@ -30,13 +30,14 @@ Auth::routes();
 Route::get('/dashboard','Dashboard\DashBoardController@index')->name("dashboard");
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware'=>'auth'],function(){
-    Route::get("students/report",'Student\StudentController@report');
+Route::group(['middleware'=>['auth','cors']],function(){
+    Route::get("students/report/{program?}/{department?}/{admission?}",'Student\StudentController@report');
+
     Route::resource('students','Student\StudentController');
     Route::get("students/{student}/create-2",'Student\StudentController@create_two');
     Route::post('students/student-store','Student\StudentController@storeStudent')->name("storeStudent");
     Route::get('students/search/{key}/{value}','Student\StudentController@searchStudent');
-    Route::get('students/{program}/{department}/{admission?}','Student\StudentController@filterStudent'); //
+    Route::get('students/{program}/{department}/{admission?}','Student\StudentController@filterStudents'); //
     Route::resource('departments','Department\DepartmentController');
     Route::get('programs','Program\ProgramController@index');
     Route::get('programs/{program}/departments','Program\ProgramController@departments');
@@ -52,4 +53,5 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get("contacts/create/{application}",'Contact\ContactPersonController@create')->name("contacts.create");
 
 });
+
 

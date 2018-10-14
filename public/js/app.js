@@ -47838,6 +47838,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -47856,12 +47868,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       pagination: {},
       search_q: '',
       has_students: false,
-      selected_student: ''
+      selected_student: '',
+      export_link: ''
     };
   },
   created: function created() {
     this.base_url = "/api/students";
     this.fetchStudents(this.base_url);
+    this.export_link = "/students/report/";
     this.getAdmissions();
     this.getPrograms();
   },
@@ -47887,7 +47901,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       base_url = base_url + "?";
       var pagination = {
         current_page: res.current_page,
-        last_page: base_url + res.last_page,
+        // last_page:base_url+res.last_page,
+        total: res.total,
+        from: res.from,
+        to: res.to,
+        last_page: res.last_page,
         next: res.next_page_url === null ? null : base_url + res.next_page_url.substr(1),
         prev: res.prev_page_url === null ? null : base_url + res.prev_page_url.substr(1),
         numbers: []
@@ -47903,11 +47921,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this2 = this;
 
       if (this.search_q === "") {
-        this.base_url = "api/students/";
+        this.base_url = "/api/students/";
         this.fetchStudents(this.base_url);
         return;
       }
-      axios.get("students/search/first_name/" + this.search_q).then(function (data) {
+      axios.get("/students/search/first_name/" + this.search_q).then(function (data) {
         if (data.data !== []) {
           console.log(data);
           _this2.students = [];
@@ -47920,7 +47938,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }).catch(function (ex) {
         console.info("We seem to have problems: " + ex);
-        _this2.base_url = "api/students";
+        _this2.base_url = "/api/students";
         _this2.fetchStudents(_this2.base_url);
       });
     },
@@ -48008,9 +48026,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this7.program = '';
         _this7.department = '';
         _this7.admission = '';
-        console.log(res.data.last_page);
+        // console.log(res.data.last_page);
         _this7.base_url = url;
         vm.makePagination(res.data, url);
+        _this7.export_link = "/students/report/" + filters.program + "/" + filters.department + "/" + filters.admission;
       });
     },
 
@@ -48030,55 +48049,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("div", { staticClass: "input-field col m3" }, [
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.admission,
-              expression: "admission"
-            }
-          ],
-          staticClass: "browser-default form-control",
-          attrs: { name: "admission", id: "admission" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.admission = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "", disabled: "", selected: "" } }, [
-            _vm._v("Choose admission")
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.admissions, function(admission) {
-            return _c(
-              "option",
-              { key: admission.id, domProps: { value: admission.id } },
-              [_vm._v(_vm._s(admission.admission_name))]
-            )
-          })
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "input-field col m3" }, [
-      _c("div", { attrs: { id: "programs" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "input-field col m3" }, [
         _c(
           "select",
           {
@@ -48086,12 +48058,117 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.program,
-                expression: "program"
+                value: _vm.admission,
+                expression: "admission"
               }
             ],
             staticClass: "browser-default form-control",
-            attrs: { name: "program", id: "program" },
+            attrs: { name: "admission", id: "admission" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.admission = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "", disabled: "", selected: "" } }, [
+              _vm._v("Choose admission")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.admissions, function(admission) {
+              return _c(
+                "option",
+                { key: admission.id, domProps: { value: admission.id } },
+                [_vm._v(_vm._s(admission.admission_name))]
+              )
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-field col m3" }, [
+        _c("div", { attrs: { id: "programs" } }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.program,
+                  expression: "program"
+                }
+              ],
+              staticClass: "browser-default form-control",
+              attrs: { name: "program", id: "program" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.program = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.getDepartments
+                ]
+              }
+            },
+            [
+              _c(
+                "option",
+                { attrs: { value: "", disabled: "", selected: "" } },
+                [_vm._v("Choose program")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.programs, function(program) {
+                return _c(
+                  "option",
+                  { key: program.id, domProps: { value: program.id } },
+                  [_vm._v(_vm._s(program.program_name))]
+                )
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-field col m3" }, [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.department,
+                expression: "department"
+              }
+            ],
+            staticClass: "browser-default form-control",
+            attrs: {
+              name: "department",
+              id: "department",
+              disabled: _vm.program == ""
+            },
             on: {
               change: [
                 function($event) {
@@ -48103,109 +48180,69 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.program = $event.target.multiple
+                  _vm.department = $event.target.multiple
                     ? $$selectedVal
                     : $$selectedVal[0]
                 },
-                _vm.getDepartments
+                _vm.filter
               ]
             }
           },
           [
-            _c("option", { attrs: { value: "", disabled: "", selected: "" } }, [
-              _vm._v("Choose program")
+            _c("option", { attrs: { value: "", disabled: "" } }, [
+              _vm._v("Choose Department")
             ]),
             _vm._v(" "),
-            _vm._l(_vm.programs, function(program) {
-              return _c(
-                "option",
-                { key: program.id, domProps: { value: program.id } },
-                [_vm._v(_vm._s(program.program_name))]
-              )
+            _vm._l(_vm.departments, function(department) {
+              return _c("option", { domProps: { value: department.id } }, [
+                _vm._v(_vm._s(department.department_name))
+              ])
             })
           ],
           2
         )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "input-field col m3" }, [
-      _c(
-        "select",
-        {
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-field col m3 right" }, [
+        _c("input", {
           directives: [
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.department,
-              expression: "department"
+              value: _vm.search_q,
+              expression: "search_q"
             }
           ],
-          staticClass: "browser-default form-control",
-          attrs: {
-            name: "department",
-            id: "department",
-            disabled: _vm.program == ""
-          },
+          attrs: { type: "text", name: "search", id: "search" },
+          domProps: { value: _vm.search_q },
           on: {
-            change: [
-              function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.department = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              },
-              _vm.filter
-            ]
-          }
-        },
-        [
-          _c("option", { attrs: { value: "", disabled: "" } }, [
-            _vm._v("Choose Department")
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.departments, function(department) {
-            return _c("option", { domProps: { value: department.id } }, [
-              _vm._v(_vm._s(department.department_name))
-            ])
-          })
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "input-field right" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.search_q,
-            expression: "search_q"
-          }
-        ],
-        attrs: { type: "text", name: "search", id: "search" },
-        domProps: { value: _vm.search_q },
-        on: {
-          keyup: _vm.searchStudent,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+            keyup: _vm.searchStudent,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.search_q = $event.target.value
             }
-            _vm.search_q = $event.target.value
           }
-        }
-      }),
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "search" } }, [
+          _vm._v("Search by first name")
+        ])
+      ]),
       _vm._v(" "),
-      _c("label", { attrs: { for: "search" } }, [
-        _vm._v("Search by first name")
+      _c("div", { staticClass: "input-field col m4" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn red darken-1 white-text waves-light waves-effect",
+            attrs: { href: _vm.export_link, target: "_blank" }
+          },
+          [
+            _c("i", { staticClass: "material-icons right" }, [_vm._v("send")]),
+            _vm._v("PDF")
+          ]
+        )
       ])
     ]),
     _vm._v(" "),
@@ -48318,6 +48355,20 @@ var render = function() {
     _vm.has_students
       ? _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col m6 offset-m4" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col m12" }, [
+                _vm._v(
+                  "showing " +
+                    _vm._s(_vm.pagination.from) +
+                    " to " +
+                    _vm._s(_vm.pagination.to) +
+                    " of " +
+                    _vm._s(_vm.pagination.total) +
+                    " entries"
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _c(
               "ul",
               { staticClass: "pagination" },
