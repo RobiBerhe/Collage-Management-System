@@ -52,6 +52,9 @@ Route::group(['middleware'=>['auth','cors']],function(){
     Route::resource('contacts','Contact\ContactPersonController')->except('create'); //we are excluding the create method because it depends on the students application id and we need to provide that info.
     Route::get("contacts/create/{application}",'Contact\ContactPersonController@create')->name("contacts.create");
 
+    Route::post('profile/picture/upload/{id}','Profile\ProfileController@uploadPicture');
+    Route::get('profile/picture/{id}','Profile\ProfileController@get');
+    // Route::resource("pictures",'Profile\ProfileController');
 });
 
 

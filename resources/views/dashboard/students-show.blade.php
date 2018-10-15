@@ -4,18 +4,25 @@
 
 	<div class="container" id="app">
 		<div class="row">
-			<div class="col m8 offset-m3">
+			<div class="col m10 offset-m2">
 				<div class="card white">
 					<p><a href="/students/" class="btn red darken-2 white-text">View all</a></p>
 					<div class="card-content">
 						<div class="row">
-							<div class="col m12">
+							<div class="col m4">
+								{{-- <div class="row"></div> --}}
+								<span class="card-title" style="font-size: 20px">Student Picture</span>
+								<hr>
+								<div class="row">
+									<studentprofile stid="{{$student->id}}"></studentprofile>
+								</div>
+							</div>
+							<div class="col m8">
 								<ul class="tabs">
 									<li class="tab col m6"><a href="#student-info">Basic Info</a></li>
 									<li class="tab col m6"><a href="#student-detail">Details</a></li>
 								</ul>
-							</div>
-							<div id="student-info">
+								<div id="student-info">
 								<div class="row"></div>
 								<span class="card-title">Personal Info</span>
 								<hr>
@@ -50,6 +57,8 @@
 								<p>Graduation Year: <strong>{{$student->admittedlist->graduation_year}}</strong></p>
 
 							</div>
+							</div>
+							
 						</div>
 						
 					</div>
@@ -77,5 +86,10 @@
 @endsection
 
 @section('scripts')
-	<script src="{{asset('js/main.js')}}"></script>
+	<script src="{{asset('js/main.js')}}"></script> {{-- we will remove this latter.--}}
+	<script>
+		// document.addEventListener('click',function(){
+		// 	alert("HELLO WORLD !!!");
+		// });
+	</script>
 @endsection

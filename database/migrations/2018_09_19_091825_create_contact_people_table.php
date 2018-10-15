@@ -20,13 +20,13 @@ class CreateContactPeopleTable extends Migration
             $table->string("middle_name");
             $table->string("last_name");
             $table->string("city");
-            $table->string("woreda");
+            $table->string("woreda")->nullable();
             $table->string("kfle_ketema");
             $table->integer("kebele");
-            $table->string("house_number");
+            $table->string("house_number")->nullable();
             $table->bigInteger("telephone_home");
-            $table->bigInteger("telephone_office");
-            $table->integer("po_box");
+            $table->bigInteger("telephone_office")->nullable();
+            $table->integer("po_box")->nullable();
             $table->timestamps();
         });
     }

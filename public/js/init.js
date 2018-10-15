@@ -11,4 +11,5 @@ $(document).ready(function(){
     $('.modal').modal();
     $('.dropdown-trigger').dropdown({coverTrigger: false, constrainWidth: false});
     $(".datepicker").datepicker({yearRange:[2000,2018],format:"yyyy-mm-dd"});
+    
 });

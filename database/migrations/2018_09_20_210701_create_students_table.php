@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->integer("department_id")->unsigned(); //foreign key.
             $table->integer("admission_id")->unsigned();
             $table->integer("section_id")->unsigned(); //foreing key new-> sections has a collection of students so we should have the section id as a foriegn key here..
+            $table->string("profile_picture_path")->default("");
             // $table->integer("status_id")->unsigned(); //foreign key. // new-> a student has one status so store a student_id in there.
             $table->timestamps();
         });

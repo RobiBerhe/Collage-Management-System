@@ -68,7 +68,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-				<h3 class="report-title">Students List</h3>
+				<h3 class="report-title">Students List: {{$students->count()}} in total</h3>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
