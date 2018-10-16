@@ -48942,6 +48942,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.post('/profile/picture/upload/' + this.studentId, formData).then(function (res) {
 				_this2.picture = res.data;
 				console.log(_this2.picture);
+				document.getElementById('picture-form').reset();
 			});
 		},
 		lightbox: function lightbox() {
@@ -48970,7 +48971,8 @@ var render = function() {
           attrs: {
             action: "/profile/picture/upload",
             method: "POST",
-            enctype: "multipart/form-data"
+            enctype: "multipart/form-data",
+            id: "picture-form"
           },
           on: {
             submit: function($event) {
@@ -48990,7 +48992,7 @@ var render = function() {
                       alt: "student picture",
                       "data-position": "top",
                       "data-tooltip":
-                        "Click here to view a larger version of this image"
+                        "Click to view a larger version of this image"
                     },
                     on: { click: _vm.lightbox }
                   }),
@@ -49034,7 +49036,7 @@ var render = function() {
                       src: "/images/user-avatar.png",
                       alt: "",
                       "data-position": "bottom",
-                      "data-tooltip": "Click here to upload/change",
+                      "data-tooltip": "Click to upload an image",
                       onclick: "document.getElementById('picture').click()"
                     }
                   })

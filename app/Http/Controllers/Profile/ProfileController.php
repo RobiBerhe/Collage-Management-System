@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App;
 use App\Student;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -19,10 +20,13 @@ class ProfileController extends Controller
     	
     	if($request->hasFile('photo') && $request->file('photo')->isValid()){
     		if(($request->photo->extension() == "jpeg") || ($request->photo->extension() == "jpg") || ($request->photo->extension() == "png")){
-    			$path = $request->photo->store("public/uploads");
 
-    			// we are going to have to replace the public with storage as it is referenced by a sym link.
-    			$path = str_replace("public", "/storage", $path);
+                $file = $request->file("photo");
+                $name = time()."-".$file->getClientOriginalName();
+                $file->move(public_path().'/storage/uploads/',$name);
+                $imagePath = public_path().'/storage/uploads/'.$name;
+                $image = Image::make($imagePath)->resize(230,230)->save();
+                $path = "/storage/uploads/".$name;
     			$student->profile_picture_path = $path;
     			$student->save();
     			return response()->json($student->profile_picture_path);
