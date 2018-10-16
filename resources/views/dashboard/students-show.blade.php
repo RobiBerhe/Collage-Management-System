@@ -1,5 +1,11 @@
 @extends('layouts.dashboard')
 
+@section('styles')
+	@parent 
+	<link rel="stylesheet" href="{{asset('css/lightbox.css')}}">
+@endsection
+
+
 @section('content')
 
 	<div class="container" id="app">

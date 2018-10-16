@@ -4,8 +4,18 @@
 			<!-- <p>Student id is : {{stid}}</p> -->
 			<form action="/profile/picture/upload" method="POST" enctype="multipart/form-data" v-on:submit.prevent="upload">
 				<div class="col m12">
-						<img v-if="picture" v-bind:src="picture" alt="student picture" data-position="top" data-tooltip="Click here to upload/change" class="img-fluid tooltipped"  onclick="document.getElementById('picture').click()">
-						<img v-else src="/images/user-avatar.png" alt="" data-position="bottom" data-tooltip="Click here to upload/change" class="img-fluid tooltipped" onclick="document.getElementById('picture').click()">
+						<div v-if="picture">
+							<img v-bind:src="picture" alt="student picture" data-position="top" data-tooltip="Click here to view a larger version of this image" class="img-fluid tooltipped"  v-on:click="lightbox">
+							<div class="lightbox" id="lightbox">
+								<div class="light-img">
+									<img v-bind:src="picture" alt="student profile picture" class="img-fluid">
+									<a class="btn btn-lg btn-flat red darken-3 white-text light-cancel" href="#" v-on:click.prevent="cancelLightbox">&times;</a>
+								</div>
+							</div>
+						</div>
+						<div v-else>
+							<img src="/images/user-avatar.png" alt="" data-position="bottom" data-tooltip="Click here to upload/change" class="img-fluid tooltipped" onclick="document.getElementById('picture').click()">
+						</div>
 						<div class="row"></div>
 						<input type="file" name="photo" id="picture" class="form-control">
 
@@ -61,6 +71,14 @@
 						console.log(this.picture);
 					})
 			},
+
+			lightbox(){
+				$("#lightbox").fadeIn();
+			},
+
+			cancelLightbox(){
+				$("#lightbox").fadeOut();
+			}
 
 		}
 

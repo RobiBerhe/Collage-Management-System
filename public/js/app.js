@@ -13988,7 +13988,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(52);
+module.exports = __webpack_require__(54);
 
 
 /***/ }),
@@ -48822,9 +48822,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(57)
+var __vue_script__ = __webpack_require__(52)
 /* template */
-var __vue_template__ = __webpack_require__(56)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -48864,112 +48864,20 @@ module.exports = Component.exports
 
 /***/ }),
 /* 52 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col m12" }, [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "form",
-        {
-          attrs: {
-            action: "/profile/picture/upload",
-            method: "POST",
-            enctype: "multipart/form-data"
-          },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.upload($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "col m12" }, [
-            _vm.picture
-              ? _c("img", {
-                  staticClass: "img-fluid tooltipped",
-                  attrs: {
-                    src: _vm.picture,
-                    alt: "student picture",
-                    "data-position": "top",
-                    "data-tooltip": "Click here to upload/change",
-                    onclick: "document.getElementById('picture').click()"
-                  }
-                })
-              : _c("img", {
-                  staticClass: "img-fluid tooltipped",
-                  attrs: {
-                    src: "/images/user-avatar.png",
-                    alt: "",
-                    "data-position": "bottom",
-                    "data-tooltip": "Click here to upload/change",
-                    onclick: "document.getElementById('picture').click()"
-                  }
-                }),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "file", name: "photo", id: "picture" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col m1 offset-m3" }, [
-            _vm.picture
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn waves-effect waves-light red darken-2",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Change")]
-                )
-              : _c(
-                  "button",
-                  {
-                    staticClass: "btn waves-effect waves-light red darken-2",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Upload")]
-                )
-          ])
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-a0474656", module.exports)
-  }
-}
-
-/***/ }),
-/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -49035,10 +48943,152 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.picture = res.data;
 				console.log(_this2.picture);
 			});
+		},
+		lightbox: function lightbox() {
+			$("#lightbox").fadeIn();
+		},
+		cancelLightbox: function cancelLightbox() {
+			$("#lightbox").fadeOut();
 		}
 	}
 
 });
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col m12" }, [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "form",
+        {
+          attrs: {
+            action: "/profile/picture/upload",
+            method: "POST",
+            enctype: "multipart/form-data"
+          },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.upload($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "col m12" }, [
+            _vm.picture
+              ? _c("div", [
+                  _c("img", {
+                    staticClass: "img-fluid tooltipped",
+                    attrs: {
+                      src: _vm.picture,
+                      alt: "student picture",
+                      "data-position": "top",
+                      "data-tooltip":
+                        "Click here to view a larger version of this image"
+                    },
+                    on: { click: _vm.lightbox }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "lightbox", attrs: { id: "lightbox" } },
+                    [
+                      _c("div", { staticClass: "light-img" }, [
+                        _c("img", {
+                          staticClass: "img-fluid",
+                          attrs: {
+                            src: _vm.picture,
+                            alt: "student profile picture"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-lg btn-flat red darken-3 white-text light-cancel",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.cancelLightbox($event)
+                              }
+                            }
+                          },
+                          [_vm._v("×")]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              : _c("div", [
+                  _c("img", {
+                    staticClass: "img-fluid tooltipped",
+                    attrs: {
+                      src: "/images/user-avatar.png",
+                      alt: "",
+                      "data-position": "bottom",
+                      "data-tooltip": "Click here to upload/change",
+                      onclick: "document.getElementById('picture').click()"
+                    }
+                  })
+                ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "file", name: "photo", id: "picture" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col m1 offset-m3" }, [
+            _vm.picture
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn waves-effect waves-light red darken-2",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Change")]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "btn waves-effect waves-light red darken-2",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Upload")]
+                )
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a0474656", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

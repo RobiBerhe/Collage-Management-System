@@ -16,10 +16,13 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <script>window.Laravel = {csrfToken:'{{csrf_token()}}'}</script>
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/materialize.css')}}">
-    <link rel="stylesheet" href="{{asset('css/material-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/design.css')}}">
+    @section('styles')
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/materialize.css')}}">
+        <link rel="stylesheet" href="{{asset('css/material-icons.css')}}">
+        <link rel="stylesheet" href="{{asset('css/design.css')}}">
+
+    @show
     {{-- <link rel="stylesheet" href="{{asset('css/welcome.css')}}"> --}}
 </head>
 <body>
